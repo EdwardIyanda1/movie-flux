@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MovieFlux — Get the App</title>
+<meta name="description" content="A cinema-style streaming app with trending picks, a Top 10 shelf, and anime — all in one dark, marquee-lit interface. Download the Android test build.">
+
+<!-- Canonical -->
+<link rel="canonical" href="https://movie-fluxx.vercel.app/">
+
+<!-- Open Graph / Facebook, WhatsApp, Discord, etc. -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://movie-fluxx.vercel.app/">
+<meta property="og:title" content="MovieFlux — Get the App">
+<meta property="og:description" content="A cinema-style streaming app with trending picks, a Top 10 shelf, and anime — all in one dark, marquee-lit interface. Download the Android test build.">
+<meta property="og:image" content="https://movie-fluxx.vercel.app/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:site_name" content="MovieFlux">
+<meta property="og:locale" content="en_US">
+
+<!-- Twitter / X -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:url" content="https://movie-fluxx.vercel.app/">
+<meta name="twitter:title" content="MovieFlux — Get the App">
+<meta name="twitter:description" content="A cinema-style streaming app with trending picks, a Top 10 shelf, and anime — all in one dark, marquee-lit interface. Download the Android test build.">
+<meta name="twitter:image" content="https://movie-fluxx.vercel.app/og-image.png">
+
+<!-- Theme color for mobile browser chrome -->
+<meta name="theme-color" content="#0B0B0D">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Manrope:wght@400;500;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap');
+
+  :root{
+    --ink:#0B0B0D;
+    --surface:#161618;
+    --surface-raised:#1E1E21;
+    --red:#E50914;
+    --red-dim:#8f0710;
+    --gold:#F0A020;
+    --paper:#F5F3EE;
+    --muted:#8C8C90;
+    --hair:rgba(255,255,255,0.08);
+  }
+
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--ink);
+    color:var(--paper);
+    font-family:'Manrope', sans-serif;
+    line-height:1.5;
+    overflow-x:hidden;
+  }
+  .mono{font-family:'IBM Plex Mono', monospace;}
+  .display{font-family:'Bebas Neue', sans-serif; letter-spacing:0.02em;}
+
+  a{color:inherit;}
+
+  /* ---------- FILM STRIP DIVIDER ---------- */
+  .filmstrip{
+    height:14px;
+    background:
+      repeating-linear-gradient(90deg, #000 0 10px, transparent 10px 20px) top/100% 7px no-repeat,
+      repeating-linear-gradient(90deg, #000 0 10px, transparent 10px 20px) bottom/100% 7px no-repeat,
+      var(--surface);
+    background-color:#050505;
+    position:relative;
+  }
+  .filmstrip::before, .filmstrip::after{
+    content:"";
+    position:absolute; left:0; right:0; height:7px;
+    background-image: radial-gradient(circle, var(--ink) 2.6px, transparent 2.7px);
+    background-size: 20px 7px;
+    background-repeat: repeat-x;
+  }
+  .filmstrip::before{ top:0; }
+  .filmstrip::after{ bottom:0; }
+
+  /* ---------- HERO / MARQUEE ---------- */
+  .hero{
+    position:relative;
+    padding:96px 24px 88px;
+    text-align:center;
+    background:
+      radial-gradient(ellipse 60% 50% at 50% 0%, rgba(229,9,20,0.18), transparent 70%),
+      linear-gradient(180deg, #0B0B0D 0%, #0B0B0D 100%);
+    overflow:hidden;
+  }
+  .hero::before{
+    content:"";
+    position:absolute; inset:0;
+    background-image:
+      repeating-linear-gradient(115deg, rgba(255,255,255,0.025) 0 2px, transparent 2px 90px);
+    pointer-events:none;
+  }
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:10px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px; letter-spacing:0.18em; text-transform:uppercase;
+    color:var(--gold);
+    border:1px solid rgba(240,160,32,0.35);
+    padding:6px 14px;
+    border-radius:999px;
+    background:rgba(240,160,32,0.06);
+  }
+  .eyebrow .dot{width:6px; height:6px; border-radius:50%; background:var(--gold); animation:blink 1.6s infinite;}
+  @keyframes blink{ 0%,100%{opacity:1;} 50%{opacity:0.25;} }
+
+  .marquee-title{
+    font-size:clamp(64px, 13vw, 148px);
+    line-height:0.92;
+    margin:26px 0 8px;
+    color:var(--paper);
+    position:relative;
+    display:inline-block;
+    text-shadow:
+      0 0 18px rgba(229,9,20,0.55),
+      0 0 60px rgba(229,9,20,0.25);
+  }
+  .marquee-title .bulbs{
+    position:absolute; inset:-14px -22px;
+    border:2px dashed rgba(240,160,32,0.0);
+    pointer-events:none;
+  }
+  .marquee-title .bulbs span{
+    position:absolute;
+    width:7px; height:7px;
+    border-radius:50%;
+    background:var(--gold);
+    box-shadow:0 0 6px 1px rgba(240,160,32,0.9);
+    animation:bulb-chase 2.4s linear infinite;
+  }
+
+  .tagline{
+    font-size:18px;
+    color:var(--muted);
+    max-width:520px;
+    margin:14px auto 40px;
+  }
+  .tagline strong{color:var(--paper); font-weight:700;}
+
+  .hero-cta-row{ display:flex; gap:14px; justify-content:center; flex-wrap:wrap; }
+  .btn{
+    display:inline-flex; align-items:center; gap:8px;
+    padding:14px 26px;
+    border-radius:4px;
+    font-weight:800;
+    font-size:15px;
+    text-decoration:none;
+    cursor:pointer;
+    border:none;
+    transition:transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  .btn:hover{ transform:translateY(-2px); }
+  .btn:focus-visible{ outline:3px solid var(--gold); outline-offset:3px; }
+  .btn-primary{ background:var(--red); color:#fff; box-shadow:0 8px 24px rgba(229,9,20,0.35); }
+  .btn-primary:hover{ box-shadow:0 12px 32px rgba(229,9,20,0.5); }
+  .btn-ghost{ background:transparent; color:var(--paper); border:1.5px solid var(--hair); }
+  .btn-ghost:hover{ border-color:rgba(255,255,255,0.3); }
+
+  .platform-note{
+    margin-top:18px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    color:var(--muted);
+    letter-spacing:0.03em;
+  }
+
+  /* ---------- SECTION SHELL ---------- */
+  section{ padding:80px 24px; max-width:1080px; margin:0 auto; }
+  .section-head{ margin-bottom:44px; max-width:640px; }
+  .section-kicker{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px; letter-spacing:0.18em; text-transform:uppercase;
+    color:var(--red);
+    margin-bottom:10px;
+    display:block;
+  }
+  .section-title{ font-size:clamp(30px, 4vw, 42px); font-weight:800; letter-spacing:-0.01em; }
+  .section-sub{ color:var(--muted); margin-top:12px; font-size:16px; max-width:56ch; }
+
+  /* ---------- REEL FEATURES ---------- */
+  .reel{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(210px, 1fr));
+    gap:2px;
+    background:var(--hair);
+    border:1px solid var(--hair);
+    border-radius:8px;
+    overflow:hidden;
+  }
+  .frame{
+    background:var(--surface);
+    padding:28px 22px;
+    position:relative;
+  }
+  .frame-icon{
+    width:38px; height:38px;
+    border-radius:8px;
+    display:flex; align-items:center; justify-content:center;
+    background:rgba(229,9,20,0.12);
+    color:var(--red);
+    margin-bottom:16px;
+    font-size:18px;
+  }
+  .frame h3{ font-size:16px; font-weight:800; margin-bottom:6px; }
+  .frame p{ font-size:13.5px; color:var(--muted); }
+
+  /* ---------- TICKET DOWNLOAD ---------- */
+  .ticket-wrap{
+    display:flex;
+    justify-content:center;
+    padding:20px 0 0;
+  }
+  .ticket{
+    display:flex;
+    width:100%;
+    max-width:680px;
+    background:var(--surface-raised);
+    border-radius:10px;
+    overflow:hidden;
+    box-shadow:0 30px 60px rgba(0,0,0,0.5);
+    border:1px solid var(--hair);
+  }
+  .ticket-stub{
+    width:150px;
+    flex-shrink:0;
+    background:
+      repeating-linear-gradient(180deg, transparent 0 12px, rgba(0,0,0,0.35) 12px 13px),
+      linear-gradient(160deg, var(--red) 0%, var(--red-dim) 100%);
+    display:flex; align-items:center; justify-content:center;
+    position:relative;
+  }
+  .ticket-stub span{
+    writing-mode:vertical-rl;
+    text-orientation:mixed;
+    font-family:'Bebas Neue', sans-serif;
+    font-size:28px;
+    letter-spacing:0.12em;
+    color:#fff;
+  }
+  .perforation{
+    width:0;
+    border-left:2.5px dashed rgba(255,255,255,0.25);
+    position:relative;
+  }
+  .perforation::before, .perforation::after{
+    content:"";
+    position:absolute;
+    width:20px; height:20px;
+    background:var(--ink);
+    border-radius:50%;
+    left:-11px;
+  }
+  .perforation::before{ top:-10px; }
+  .perforation::after{ bottom:-10px; }
+  .ticket-body{
+    padding:30px 32px;
+    flex:1;
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+  }
+  .ticket-row{ display:flex; justify-content:space-between; align-items:baseline; gap:16px; flex-wrap:wrap; }
+  .ticket-label{ font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:0.14em; text-transform:uppercase; color:var(--muted); }
+  .ticket-value{ font-weight:700; font-size:14px; }
+  .admit-one{ font-family:'Bebas Neue', sans-serif; font-size:30px; letter-spacing:0.06em; color:var(--gold); }
+  .ticket-cta{ margin-top:6px; }
+  .ticket-fine{ font-size:12px; color:var(--muted); margin-top:4px; }
+
+  /* ---------- INSTALL STEPS ---------- */
+  .steps{
+    counter-reset:step;
+    display:grid;
+    gap:2px;
+    background:var(--hair);
+    border:1px solid var(--hair);
+    border-radius:8px;
+    overflow:hidden;
+  }
+  .step{
+    counter-increment:step;
+    background:var(--surface);
+    padding:20px 22px;
+    display:flex;
+    gap:18px;
+    align-items:flex-start;
+  }
+  .step::before{
+    content:counter(step);
+    font-family:'Bebas Neue', sans-serif;
+    font-size:26px;
+    color:var(--red);
+    min-width:34px;
+    line-height:1;
+  }
+  .step h4{ font-size:14.5px; font-weight:800; margin-bottom:4px; }
+  .step p{ font-size:13.5px; color:var(--muted); }
+
+  /* ---------- FOOTER ---------- */
+  footer{
+    border-top:1px solid var(--hair);
+    padding:36px 24px 48px;
+    text-align:center;
+  }
+  footer p{ font-size:12.5px; color:var(--muted); max-width:560px; margin:0 auto 6px; }
+  footer .brand{ font-family:'Bebas Neue', sans-serif; font-size:22px; letter-spacing:0.08em; color:var(--paper); margin-bottom:14px; }
+
+  @media (max-width:560px){
+    .ticket{ flex-direction:column; }
+    .ticket-stub{ width:100%; height:56px; }
+    .ticket-stub span{ writing-mode:horizontal-tb; }
+    .perforation{ width:100%; height:0; border-left:none; border-top:2.5px dashed rgba(255,255,255,0.25); }
+    .perforation::before, .perforation::after{ top:-11px; left:auto; }
+    .perforation::before{ left:-10px; }
+    .perforation::after{ right:-10px; left:auto; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .eyebrow .dot, .marquee-title .bulbs span{ animation:none !important; }
+  }
+</style>
+</head>
+<body>
+
+<div class="filmstrip"></div>
+
+<header class="hero">
+  <h1 class="marquee-title display">
+    MOVIEFLUX
+    <span class="bulbs" id="bulbs"></span>
+  </h1>
+  <p class="tagline">A cinema-style streaming app with <strong>trending picks, a Top 10 shelf, and anime</strong> — all in one dark, marquee-lit interface built for the big scroll.</p>
+  <div class="hero-cta-row">
+    <a class="btn btn-primary" href="https://drive.google.com/file/d/1Z_tr5trR34jS5tWtzJ2qXG5_q1kALI0_/view?usp=sharing" target="_blank" rel="noopener">
+      ▾ Download the APK
+    </a>
+    <a class="btn btn-ghost" href="#install">Install instructions</a>
+  </div>
+  <p class="platform-note">v0.1 test build &nbsp;·&nbsp; Android only for now &nbsp;·&nbsp; ~40&nbsp;MB</p>
+</header>
+
+<div class="filmstrip"></div>
+
+<section id="whats-inside">
+  <div class="section-head">
+    <span class="section-kicker">Now Showing</span>
+    <h2 class="section-title">What's on the reel</h2>
+    <p class="section-sub">One home screen, seven rows worth of things to watch — refreshed straight from a live catalog.</p>
+  </div>
+  <div class="reel">
+    <div class="frame">
+      <div class="frame-icon">▲</div>
+      <h3>Trending Now</h3>
+      <p>What's hot across movies and series today, updated daily.</p>
+    </div>
+    <div class="frame">
+      <div class="frame-icon">10</div>
+      <h3>Top 10 in Nigeria</h3>
+      <p>A ranked shelf, numbered big — same idea as the charts you already know.</p>
+    </div>
+    <div class="frame">
+      <div class="frame-icon">▶</div>
+      <h3>Continue Watching</h3>
+      <p>Picks up mid-episode where you left off, progress bar and all.</p>
+    </div>
+    <div class="frame">
+      <div class="frame-icon">案</div>
+      <h3>Anime Row</h3>
+      <p>A dedicated shelf for Japanese-language animated series.</p>
+    </div>
+    <div class="frame">
+      <div class="frame-icon">+</div>
+      <h3>My List</h3>
+      <p>Bookmark anything with one tap and find it again from your profile.</p>
+    </div>
+    <div class="frame">
+      <div class="frame-icon">◧</div>
+      <h3>Browse by Genre</h3>
+      <p>Action, horror, romance and more — filtered chips, no digging.</p>
+    </div>
+  </div>
+</section>
+
+<div class="filmstrip"></div>
+
+<section id="download">
+  <div class="section-head">
+    <span class="section-kicker">Box Office</span>
+    <h2 class="section-title">Grab your ticket</h2>
+    <p class="section-sub">This is a test build shared directly — not on the Play Store yet, so Android will ask for one extra permission before it installs.</p>
+  </div>
+  <div class="ticket-wrap">
+    <div class="ticket">
+      <div class="ticket-stub"><span>MOVIEFLUX</span></div>
+      <div class="perforation"></div>
+      <div class="ticket-body">
+        <div class="admit-one">ADMIT ONE</div>
+        <div class="ticket-row">
+          <span class="ticket-label mono">Format</span>
+          <span class="ticket-value mono">.APK · Android</span>
+        </div>
+        <div class="ticket-row">
+          <span class="ticket-label mono">Build</span>
+          <span class="ticket-value mono">v0.1 test</span>
+        </div>
+        <a class="btn btn-primary ticket-cta" href="https://drive.google.com/file/d/1Z_tr5trR34jS5tWtzJ2qXG5_q1kALI0_/view?usp=sharing" target="_blank" rel="noopener">
+          ▾ Download APK
+        </a>
+        <p class="ticket-fine">Opens in Google Drive — tap the download icon there to save the file.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="filmstrip"></div>
+
+<section id="install">
+  <div class="section-head">
+    <span class="section-kicker">Before the show</span>
+    <h2 class="section-title">Installing the APK</h2>
+    <p class="section-sub">Four steps, once — after the first install, updates from the same source won't ask again.</p>
+  </div>
+  <div class="steps">
+    <div class="step">
+      <div>
+        <h4>Open the link on your Android phone</h4>
+        <p>Use the download button above. If you received the link elsewhere, open it in Chrome for the smoothest download.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div>
+        <h4>Download the file from Drive</h4>
+        <p>Tap the download icon in the top-right of the Drive preview screen to save the .apk to your device.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div>
+        <h4>Allow installs from this source</h4>
+        <p>Android will block it once and offer a settings link — tap it, then enable "Allow from this source" for your browser or Files app.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div>
+        <h4>Open the file and install</h4>
+        <p>Head back to your downloads, tap the .apk, and confirm install. MovieFlux will appear on your home screen.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="filmstrip"></div>
+
+<footer>
+  <div class="brand display">MOVIEFLUX</div>
+  <p>This is an early test build shared privately for feedback — expect rough edges. MovieFlux aggregates publicly available streaming sources and is not affiliated with any studio or streaming platform.</p>
+  <p class="mono" style="margin-top:14px; font-size:11px;">Built with React Native · Expo</p>
+</footer>
+
+<script>
+  // Marquee bulb positions — placed around the title's bounding box
+  (function(){
+    const wrap = document.getElementById('bulbs');
+    if(!wrap) return;
+    const count = 26;
+    for(let i=0;i<count;i++){
+      const b = document.createElement('span');
+      const t = i/count;
+      const angle = t * Math.PI * 2;
+      // approximate rectangle placement
+      const perim = 2*(1+0.34); // rough w+h ratio
+      let x,y;
+      const p = (t*perim) % perim;
+      if(p < 1){ x = p; y = 0; }
+      else if(p < 1.34){ x = 1; y = (p-1)/0.34; }
+      else if(p < 2.34){ x = 1-(p-1.34); y = 1; }
+      else { x = 0; y = 1-(p-2.34)/0.34; }
+      b.style.left = (x*100)+'%';
+      b.style.top = (y*100)+'%';
+      b.style.animationDelay = (t*2.4)+'s';
+      wrap.appendChild(b);
+    }
+  })();
+
+  function keyframesInject(){
+    const style = document.createElement('style');
+    style.textContent = `@keyframes bulb-chase{0%,100%{opacity:0.15;} 50%{opacity:1;}}`;
+    document.head.appendChild(style);
+  }
+  keyframesInject();
+</script>
+
+</body>
+</html>

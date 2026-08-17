@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MovieFlux — Reel Not Found</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Manrope:wght@400;500;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap');
+
+  :root{
+    --ink:#0B0B0D;
+    --surface:#161618;
+    --red:#E50914;
+    --red-dim:#8f0710;
+    --gold:#F0A020;
+    --paper:#F5F3EE;
+    --muted:#8C8C90;
+    --hair:rgba(255,255,255,0.08);
+  }
+
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html,body{height:100%;}
+  body{
+    background:var(--ink);
+    color:var(--paper);
+    font-family:'Manrope', sans-serif;
+    display:flex;
+    flex-direction:column;
+    min-height:100vh;
+  }
+  .mono{font-family:'IBM Plex Mono', monospace;}
+  .display{font-family:'Bebas Neue', sans-serif; letter-spacing:0.02em;}
+  a{color:inherit;}
+
+  .filmstrip{
+    height:14px;
+    background-color:#050505;
+    position:relative;
+    flex-shrink:0;
+  }
+  .filmstrip::before, .filmstrip::after{
+    content:"";
+    position:absolute; left:0; right:0; height:7px;
+    background-image: radial-gradient(circle, var(--ink) 2.6px, transparent 2.7px);
+    background-size: 20px 7px;
+    background-repeat: repeat-x;
+  }
+  .filmstrip::before{ top:0; }
+  .filmstrip::after{ bottom:0; }
+
+  main{
+    flex:1;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:60px 24px;
+    position:relative;
+    overflow:hidden;
+    background:radial-gradient(ellipse 60% 50% at 50% 40%, rgba(229,9,20,0.14), transparent 70%);
+  }
+  main::before{
+    content:"";
+    position:absolute; inset:0;
+    background-image: repeating-linear-gradient(115deg, rgba(255,255,255,0.02) 0 2px, transparent 2px 90px);
+    pointer-events:none;
+  }
+
+  .content{ max-width:520px; position:relative; }
+
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:10px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px; letter-spacing:0.18em; text-transform:uppercase;
+    color:var(--gold);
+    border:1px solid rgba(240,160,32,0.35);
+    padding:6px 14px;
+    border-radius:999px;
+    background:rgba(240,160,32,0.06);
+    margin-bottom:28px;
+  }
+  .eyebrow .dot{width:6px; height:6px; border-radius:50%; background:var(--gold);}
+
+  .code{
+    font-family:'Bebas Neue', sans-serif;
+    font-size:clamp(96px, 24vw, 200px);
+    line-height:0.85;
+    color:var(--paper);
+    text-shadow:0 0 24px rgba(229,9,20,0.5), 0 0 70px rgba(229,9,20,0.22);
+  }
+
+  .marquee-line{
+    font-family:'Bebas Neue', sans-serif;
+    font-size:clamp(20px, 4vw, 30px);
+    letter-spacing:0.08em;
+    color:var(--red);
+    margin-top:8px;
+  }
+
+  p.copy{
+    color:var(--muted);
+    font-size:15.5px;
+    margin:22px auto 34px;
+    max-width:40ch;
+  }
+
+  .btn{
+    display:inline-flex; align-items:center; gap:8px;
+    padding:14px 28px;
+    border-radius:4px;
+    font-weight:800;
+    font-size:15px;
+    text-decoration:none;
+    background:var(--red);
+    color:#fff;
+    box-shadow:0 8px 24px rgba(229,9,20,0.35);
+    transition:transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  .btn:hover{ transform:translateY(-2px); box-shadow:0 12px 32px rgba(229,9,20,0.5); }
+  .btn:focus-visible{ outline:3px solid var(--gold); outline-offset:3px; }
+
+  .ticket-note{
+    margin-top:26px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11.5px;
+    color:var(--muted);
+    letter-spacing:0.04em;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    * { animation:none !important; }
+  }
+</style>
+</head>
+<body>
+
+<div class="filmstrip"></div>
+
+<main>
+  <div class="content">
+    <div class="code display">404</div>
+    <div class="marquee-line">THIS REEL ISN'T SHOWING HERE</div>
+    <p class="copy">The page you're looking for got cut from the schedule. It may have been moved, renamed, or never made the final print.</p>
+    <a class="btn" href="/">◂ Back to MovieFlux</a>
+    <p class="ticket-note mono">ERR_CODE 404 · HOUSE&nbsp;LIGHTS&nbsp;UP</p>
+  </div>
+</main>
+
+<div class="filmstrip"></div>
+
+</body>
+</html>
